@@ -1,0 +1,30 @@
+Jenkins installation:
+step1 : Update the package list:
+sudo yum update -y
+
+step2: Enable Amazon’s Corretto repository (Amazon’s version of OpenJDK) to install Java 17:
+sudo amazon-linux-extras enable corretto17
+
+step3: Install Java 17 (Corretto):
+sudo yum install java-17-amazon-corretto -y
+
+step4: Verify Java 17 installation:
+java -version
+
+ste5: Add Jenkins Repository
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+https://pkg.jenkins.io/redhat-stable/jenkins.repo
+Import the GPG key for the repository:
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+step6: Install Jenkins
+sudo yum install jenkins -y
+
+step7:  Start and Enable Jenkins
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+step8: Configure Jenkins to Use Java 17
+sudo vi /etc/sysconfig/jenkins
+JENKINS_JAVA_CMD="/usr/lib/jvm/java-17-amazon-corretto/bin/java"
+sudo systemctl restart jenkins
