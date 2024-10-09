@@ -28,3 +28,23 @@ step8: Configure Jenkins to Use Java 17
 sudo vi /etc/sysconfig/jenkins
 JENKINS_JAVA_CMD="/usr/lib/jvm/java-17-amazon-corretto/bin/java"
 sudo systemctl restart jenkins
+
+
+while installing if we get error like below 
+jenkins-2.479-1.1.noarch.rpm   FAILED
+http://pkg.jenkins.io/redhat-stable/jenkins-2.479-1.1.noarch.rpm: [Errno 14] HTTPS Error 404 - Not Found                    ]  0.0 B/s |    0 B  --:--:-- ETA
+follow the below steps to install jenkins
+
+step1: Remove the existing repository file (if needed):
+sudo rm /etc/yum.repos.d/jenkins.repo
+Add the latest Jenkins repository again, but ensure you're using the correct, stable repository:
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+Install jenkins again
+sudo yum install jenkins -y
+sudo yum clean all
+sudo yum update -y
+Then retry the installation:
+sudo yum install jenkins -y
+sudo yum list jenkins
